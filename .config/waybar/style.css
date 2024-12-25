@@ -1,0 +1,215 @@
+* {
+	border: none;
+	font-size: 14px;
+	font-family: "JetBrainsMono Nerd Font,JetBrainsMono NF" ;
+	color : #668888;
+	text-shadow :  none;
+	transition: text-shadow 0.3s ease-in-out, color 0.3s ease-in-out;
+}
+
+*:hover {
+	color: #BBFFFF;
+	text-shadow :  0px 0px 3px #00FF00;
+}
+
+#waybar {
+	background: transparent;
+}
+
+#custom-logo {
+	font-size: 18px;
+	color: #BBFFBB;
+	text-shadow :  0px 0px 3px #00FF00;
+	padding: 2px 10px;
+}
+
+#custom-logo.enabled {
+	background: #ff0000;
+}
+
+.modules-left,
+.modules-center,
+.modules-right {
+	margin-top: 5px;
+	margin-bottom: 5px;
+	background: #111818;
+	/*box-shadow: 0px 0px 4px #000F00; */
+}
+.modules-right {
+	padding-left: 5px;
+	border-radius: 15px 0px 0px 15px;
+	background: #111818;
+	padding-right: 10px;
+}
+
+.modules-center {
+	padding: 0px;
+	border-radius: 15px 15px 15px 15px;
+}
+
+.modules-left {
+	padding: 0px 5px 0px 5px;
+	border-radius: 0px 15px 15px 0px;
+}
+
+#battery,
+#custom-clipboard,
+#custom-colorpicker,
+#custom-powerDraw,
+#bluetooth,
+#pulseaudio,
+#pulseaudio-slider,
+#network,
+#disk,
+#memory,
+#backlight,
+#backlight-slider,
+#cpu,
+#temperature,
+#custom-weather,
+#idle_inhibitor,
+#jack,
+#tray,
+#workspaces,
+#clock {
+	padding: 0px 5px;
+}
+
+
+#backlight {
+	padding-right: 12px;
+}
+#pulseaudio {
+	padding-right: 15px;
+}
+
+
+#backlight-slider slider,
+#pulseaudio-slider slider {
+	opacity: 0;
+	background-image: none;
+	box-shadow: none;
+}
+
+#backlight-slider trough,
+#pulseaudio-slider trough {
+	min-height: 6px;
+	min-width: 60px;
+	border-radius: 5px;
+	background-color: #668888;
+}
+
+#backlight-slider highlight,
+#pulseaudio-slider highlight {
+	min-width: 0px;
+	background-color: #00DDAA;
+	margin: 0px;
+	box-shadow: 0px 0px 3px #00ff00;
+}
+
+#disk {
+	margin-left: 10px;
+	margin-right: 10px;
+}
+
+#network.disconnected,
+#temperature.critical,
+#pulseaudio.muted {
+	color: #FF0000;
+	text-shadow: none;
+}
+
+#network.disconnected:hover,
+#temperature.critical:hover,
+#pulseaudio.muted:hover {
+	text-shadow: 0px 0px 2px #ff5500;
+}
+
+#workspaces button label {
+	padding: 0px;
+	margin-right: 5px;
+}
+
+#workspaces button:hover label {
+	color: #BBFFFF;
+	text-shadow: 0px 0px 3px #00ff00;
+}
+#workspaces button:hover {
+	background: transparent;
+	/*transition: background-color 0.3s ease-in-out;
+	padding-bottom: 0px;
+	padding-top: 0px;
+	margin-bottom: 3px;
+	margin-top: 3px;
+	border-radius: 15px 15px 15px 15px;
+	*/
+	box-shadow: inherit;
+}
+
+#workspaces button.active label {
+	color : #BBFFFF;
+	text-shadow :  0px 0px 3px #00FF00;
+}
+
+#clock{
+	color: #BBFFFF;
+}
+
+#battery {
+	color: #668888;
+	text-shadow: none;
+}
+
+#battery.plugged {
+	color: #BBFFFF;
+	text-shadow: 0px 0px 3px #00ff00;
+	animation-name: none;
+}
+
+#battery.charging {
+	color: #00DDAA;
+	text-shadow: 0px 0px 3px #00ff00;
+	animation-name: none;
+}
+
+#battery.full.charging {
+	color: #BBFFFF;
+	animation-name: blink;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	animation-duration: 0.5s;
+}
+
+#battery.half:not(.charging) {
+	color: #dddd66;
+	text-shadow: 0px 0px 2px #ffffDD;
+	animation-name: none;
+}
+
+#battery.warning:not(.charging) {
+	animation-name: blink;
+	animation-duration: 1.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: alternate;
+	color: #ffbe61;
+	text-shadow: 0px 0px 3px #ff8800;
+}
+
+#battery.critical:not(.charging) {
+	animation-name: blink;
+	animation-duration: 0.5s;
+	animation-timing-function: linear;
+	animation-iteration-count: infinite;
+	animation-direction: normal;
+	color: #ff0000;
+	text-shadow: 0px 0px 3px #ff4400;
+}
+
+@keyframes blink {
+	to {
+		color: #668888;
+		text-shadow: none;
+	}
+}
