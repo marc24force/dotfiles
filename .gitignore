@@ -1,0 +1,12 @@
+# Ignore everything
+/*
+LICENSE
+
+# Except for .config
+!.config/
+
+# And this file!
+!.gitignore
+
+# .bashrc
+!.bashrc
