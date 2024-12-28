@@ -1,5 +1,11 @@
 # .bashrc
 
+# set vi mappings
+set -o vi
+
+#use vim (neovim) as default editor
+export EDITOR=vim
+
 # If not running interactively, don't do anything
 [[ $- != *i* ]] && return
 
