@@ -1,0 +1,7 @@
+#          sign name                                        alias
+power_list+="  Apaga                                       poweroff shutdown\n" #1
+power_list+="  Reinicia                                    reset reboot\n"      #2
+power_list+="󰜗  Hiverna                                     \n"                  #3
+power_list+="󰤄  Dormir                                      sleep\n"             #4
+power_list+="󰌾  Bloqueja                                    lock\n"              #5
+power_list+="󰗽  Surt                                        exit logout tanca\n" #6
