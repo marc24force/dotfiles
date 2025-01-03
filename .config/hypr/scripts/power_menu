@@ -20,7 +20,7 @@ case $val in
 	   sudo reboot >> $LOG 2>&1 ;;
 	#3) sudo zzz -Z;; #hibernate
 	4) sudo zzz -z;; #sleep
-	#5) ;; TODO #lock
+	5) hyprlock >> $LOG 2>&1 ;;
 	6) hyprctl --batch "$HYPRCMDS" >> $LOG 2>&1 #exit (logout)
 	   hyprctl dispatch exit; pkill pipewire ;; #TODO properly
 esac
