@@ -1,19 +1,14 @@
 {
 	"layer": "top", "position": "top",
-	"modules-left": ["group/hardware"],
+	"modules-left": ["custom/logo", "clock", "group/hardware"],
 	"modules-center": ["hyprland/workspaces"],
 	"modules-right": ["tray","group/brightness", "group/audio", "network",  "battery" ],
 	"reload_style_on_change":true,
 
-	"group/system": {
-		"orientation": "inherit",
-		"modules":["custom/logo", "clock"]
-	},
-
 	"group/hardware": {
 		"orientation": "inherit",
 		"signal":15,
-		"modules": ["group/system", "disk", "memory", "cpu", "temperature"],
+		"modules": ["custom/hw", "disk", "disk#home", "memory", "cpu", "temperature"],
 		"drawer": {
 			"click-to-reveal": true,
 			"transition-duration": 500,
@@ -22,7 +17,13 @@
 	},
 
 	"custom/logo": {
-		"format": "",
+		"format" : "",
+		"tooltip": false,
+		"on-click": "/bin/bash -c \"$HOME/.config/hypr/scripts/power_menu\""
+	},
+
+	"custom/hw": {
+		"format": "|",
 		"tooltip": false
 	},
 
@@ -135,6 +136,12 @@
 		"interval": 60,
 		"format": " {percentage_used}%",
 		"path": "/"
+	},
+
+	"disk#home": {
+		"interval": 60,
+		"format": " {percentage_used}%",
+		"path": "/home"
 	},
 
 	"cpu": {

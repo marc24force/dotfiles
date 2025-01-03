@@ -61,6 +61,7 @@
 #pulseaudio-slider,
 #network,
 #disk,
+#disk.home,
 #memory,
 #backlight,
 #backlight-slider,
@@ -107,8 +108,11 @@
 	box-shadow: 0px 0px 3px #00ff00;
 }
 
+
 #disk {
 	margin-left: 10px;
+}
+#disk.home {
 	margin-right: 10px;
 }
 
