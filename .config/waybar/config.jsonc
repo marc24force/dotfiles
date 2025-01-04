@@ -2,49 +2,13 @@
 	"layer": "top", "position": "top",
 	"modules-left": ["custom/logo", "clock", "group/hardware"],
 	"modules-center": ["hyprland/workspaces"],
-	"modules-right": ["tray","group/brightness", "group/audio", "network",  "battery" ],
+	"modules-right": ["tray", "group/brightness", "group/audio", "network",  "battery" ],
 	"reload_style_on_change":true,
-
-	"group/hardware": {
-		"orientation": "inherit",
-		"signal":15,
-		"modules": ["custom/hw", "disk", "disk#home", "memory", "cpu", "temperature"],
-		"drawer": {
-			"click-to-reveal": true,
-			"transition-duration": 500,
-			"transition-left-to-right": true
-		}
-	},
 
 	"custom/logo": {
 		"format" : "",
 		"tooltip": false,
 		"on-click": "/bin/bash -c \"$HOME/.config/hypr/scripts/power_menu\""
-	},
-
-	"custom/hw": {
-		"format": "|",
-		"tooltip": false
-	},
-
-	"hyprland/workspaces": {
-		"format": "{icon}",
-		"format-icons": {
-			"empty": "",
-			"active": "",
-			"default": "" 
-		},
-		"persistent-workspaces": {
-			"*": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
-		}
-	},
-
-	"idle_inhibitor":{
-		"format": "<span font='12'>{icon} </span>",
-		"format-icons": {
-			"activated":"󰈈",
-			"deactivated":"󰈉"
-		}
 	},
 
 	"clock": {
@@ -59,47 +23,70 @@
 		"format-calendar-weekdays": "<span color='#aeaeae'><b>{}</b></span>"
 	},
 
-	"bluetooth": {
-		"format-on": "",
-		"format-off": "",
-		"format-disabled": "󰂲",
-		"format-connected": "󰂴",
-		"format-connected-battery": "{device_battery_percentage}% 󰂴",
-		"tooltip-format": "{controller_alias}\t{controller_address}\n\n{num_connections} connected",
-		"tooltip-format-connected": "{controller_alias}\t{controller_address}\n\n{num_connections} connected\n\n{device_enumerate}",
-		"tooltip-format-enumerate-connected": "{device_alias}\t{device_address}",
-		"tooltip-format-enumerate-connected-battery": "{device_alias}\t{device_address}\t{device_battery_percentage}%",
-		"on-click": "rofi-bluetooth"
-	}, 
-
-	"network": {
-		"format-wifi": " ",
-		"format-ethernet":" ",
-		"format-disconnected": " ",
-		"tooltip-format": "{ipaddr}",
-		"tooltip-format-wifi": "{essid} @{frequency}MHz ({signalStrength}%)   | {ipaddr}",
-		"tooltip-format-ethernet": "{ifname} 🖧 | {ipaddr}",
-		"on-click": "networkmanager_dmenu"
+	"group/hardware": {
+		"orientation": "inherit",
+		"signal":15,
+		"modules": ["custom/divider", "disk", "disk#home", "memory", "cpu", "temperature"],
+		"drawer": {
+			"click-to-reveal": true,
+			"transition-duration": 500,
+			"transition-left-to-right": true
+		}
 	},
 
-	"battery": {
-		"interval":1,
-		"states": {
-			"full": 100,
-			"good": 90,
-			"half": 50,
-			"warning": 25,
-			"critical": 5
+	"custom/divider": {
+		"format": "|",
+		"tooltip": false
+	},
+
+	"disk": {
+		"interval": 60,
+		"format": " {percentage_used}%",
+		"path": "/"
+	},
+
+	"disk#home": {
+		"interval": 60,
+		"format": " {percentage_used}%",
+		"path": "/home"
+	},
+
+	"memory": {
+		"format": " {percentage}%"
+	},
+
+	"cpu": {
+		"interval": 5,
+		"format": " {usage}%",
+		"min-length": 6,
+		"max-length": 6,
+		"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
+	},
+
+	"temperature": {
+		"format": " {temperatureC}°C",            
+		"thermal-zone":1,
+		"format-critical": " {temperatureC}°C",
+		"interval": 5,
+		"critical-threshold": 80,
+		"on-click": "foot btop"
+	},
+
+	"hyprland/workspaces": {
+		"format": "{icon}",
+		"format-icons": {
+			"empty": "",
+			"active": "",
+			"default": "" 
 		},
-		"format": "{capacity}% {icon}",
-		"format-charging": "{capacity}% 󰂄 ",
-		"format-plugged": "{capacity}% 󰂄 ",
-		"format-icons": [ "󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹" ],
-		"tooltip-format-discharging": "{timeTo}\nBattery life: {health}%",
-		"tooltip-format-charging": "{timeTo}\nBattery life: {health}%"
+		"persistent-workspaces": {
+			"*": [ 1, 2, 3, 4, 5, 6, 7, 8, 9, 10 ]
+		}
+	},
 
-		//"format-alt": "{time-short} {icon}",
-
+	"tray": {
+		"icon-size": 14,
+		"spacing": 10
 	},
 
 	"group/brightness": {
@@ -131,39 +118,6 @@
 		"scroll-step": 1
 	},
 
-
-	"disk": {
-		"interval": 60,
-		"format": " {percentage_used}%",
-		"path": "/"
-	},
-
-	"disk#home": {
-		"interval": 60,
-		"format": " {percentage_used}%",
-		"path": "/home"
-	},
-
-	"cpu": {
-		"interval": 5,
-		"format": " {usage}%",
-		"min-length": 6,
-		"max-length": 6,
-		"format-icons": ["▁", "▂", "▃", "▄", "▅", "▆", "▇", "█"]
-	},
-
-	"memory": {
-		"format": " {percentage}%"
-	},
-
-	"temperature": {
-		"format": " {temperatureC}°C",            
-		"thermal-zone":1,
-		"format-critical": " {temperatureC}°C",
-		"interval": 5,
-		"critical-threshold": 80,
-		"on-click": "foot btop"
-	},
 
 	"group/audio": {
 		"orientation": "inherit",
@@ -200,24 +154,34 @@
 		"scroll-step": 1
 	},
 
-	"jack": {
-		"format": "{} 󱎔",
-		"format-xrun": "{xruns} xruns",
-		"format-disconnected": "DSP off",
-		"realtime": true
+	"network": {
+		"format-wifi": " ",
+		"format-ethernet":" ",
+		"format-disconnected": " ",
+		"tooltip-format": "{ipaddr}",
+		"tooltip-format-wifi": "{essid} @{frequency}MHz ({signalStrength}%)   | {ipaddr}",
+		"tooltip-format-ethernet": "{ifname} 🖧 | {ipaddr}",
+		"on-click": "networkmanager_dmenu"
 	},
 
-	"tray": {
-		"icon-size": 14,
-		"spacing": 10
-	},
+	"battery": {
+		"interval":1,
+		"states": {
+			"full": 100,
+			"good": 90,
+			"half": 50,
+			"warning": 25,
+			"critical": 5
+		},
+		"format": "{capacity}% {icon}",
+		"format-charging": "{capacity}% 󰂄 ",
+		"format-plugged": "{capacity}% 󰂄 ",
+		"format-icons": [ "󰁻", "󰁼", "󰁾", "󰂀", "󰂂", "󰁹" ],
+		"tooltip-format-discharging": "{timeTo}\nBattery life: {health}%",
+		"tooltip-format-charging": "{timeTo}\nBattery life: {health}%"
 
-	"upower": {
-		"show-icon": true,
-		"hide-if-empty": true,
-		"tooltip": true,
-		"tooltip-spacing": 20
+		//"format-alt": "{time-short} {icon}",
+
 	}
-
 }
 
