@@ -1,0 +1,7 @@
+#          sign name                                        alias
+power_list+="  Power Off                                   shutdown\n" #1
+power_list+="  Reboot                                      reset\n"    #2
+power_list+="󰜗  Hibernate                                   \n"         #3
+power_list+="󰤄  Sleep                                       \n"         #4
+power_list+="󰌾  Lock                                        block\n"    #5
+power_list+="󰗽  Exit                                        logout\n"   #6
