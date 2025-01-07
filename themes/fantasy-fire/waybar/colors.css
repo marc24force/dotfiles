@@ -1,0 +1,28 @@
+@define-color back-color rgba(31,28,28,0.85);
+@define-color text-color #997777;
+@define-color focus-color #FAEADA;
+@define-color accent-color #FFBB22;
+@define-color accent-shadow #FF5500;
+@define-color critic-color #D50032;
+@define-color critic-shadow #FF5500;
+@define-color warn-color #FFBB22;
+@define-color warn-shadow #FF8800;
+@define-color border-color #8b3513;
+
+.modules-right {
+	border-color: @border-color;
+	border-width: 2;
+	border-style: solid;
+	border-right-style: none;
+}
+.modules-left {
+	border-color: @border-color;
+	border-width: 2;
+	border-style: solid;
+	border-left-style: none;
+}
+.modules-center {
+	border-color: @border-color;
+	border-width: 2;
+	border-style: solid;
+}
