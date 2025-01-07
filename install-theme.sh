@@ -18,6 +18,8 @@ if [ -d "$THEMES_DIR/$1" ]; then
   cp "$COMMON_DIR/".bashrc "$HOME/"
   $THEMES_DIR/$1/install-cursor.sh
   echo ""
+  pkill hyprpaper
+  hyprctl dispatch exec hyprpaper > /dev/null
   echo "Theme [$1] applied"
 else
   echo "Theme $1 does not exist"
