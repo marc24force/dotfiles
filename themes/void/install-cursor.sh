@@ -12,8 +12,7 @@ if [ ! -d "$HOME/.icons/$CURSOR_NAME" ]; then
   
   echo "  - Installing to \"$HOME/.icons\""
   mv /tmp/$CURSOR_NAME/dist ~/.icons/$CURSOR_NAME
-  echo -e "[Icon Theme]\nName=Default\nComment=Default Cursor Theme\nInherits=$CURSOR_NAME" > $HOME/.icons/default/index.theme
-  
   echo "  - Cleaning up..."
   rm /tmp/$CURSOR_NAME{,.log} -rf
 fi
+echo -e "[Icon Theme]\nName=Default\nComment=Default Cursor Theme\nInherits=$CURSOR_NAME" > $HOME/.icons/default/index.theme
