@@ -1,6 +1,6 @@
 #!/bin/bash
 
-mkdir -p ~/.icons
+mkdir -p ~/.icons/default
 
 CURSOR_NAME="ArcDusk"
 
