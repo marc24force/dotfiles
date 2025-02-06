@@ -1,0 +1,6 @@
+#Set to enable to display vpn icon in bar
+#waybar disable
+host= #hostname
+port= #port
+username= #user
+password= #passwd

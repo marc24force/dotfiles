@@ -1,0 +1,15 @@
+#custom-work-vpn {
+	padding: 0px 5px;
+	color: @text-color;
+	text-shadow: none;
+}
+
+#custom-work-vpn:hover {
+	color: @focus-color;
+	text-shadow :  0px 0px 3px @accent-shadow;
+}
+
+#custom-work-vpn.down {
+	color: @critic-color;
+	text-shadow: 0px 0px 3px @critic-shadow;
+}

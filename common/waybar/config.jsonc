@@ -2,7 +2,7 @@
 	"layer": "top", "position": "top",
 	"modules-left": ["custom/logo", "clock", "group/hardware"],
 	"modules-center": ["hyprland/workspaces"],
-	"modules-right": ["tray", "group/brightness", "group/audio", "network",  "battery" ],
+	"modules-right": ["tray", "group/brightness", "group/audio", "network", "custom/vpn", "battery" ],
 	"reload_style_on_change":true,
 
 	"custom/logo": {
@@ -162,6 +162,15 @@
 		"tooltip-format-wifi": "{essid} @{frequency}MHz ({signalStrength}%)   | {ipaddr}",
 		"tooltip-format-ethernet": "{ifname} 🖧 | {ipaddr}",
 		"on-click": "networkmanager_dmenu"
+	},
+
+	"custom/vpn": {
+		"interval" : 1,
+		"exec-if": "cat $HOME/.config/vpn/config | grep waybar | grep enable > /dev/null",
+		"exec": "$HOME/.config/vpn/waybar.sh address.at.vpn",
+		"return-type": "json",
+		"on-click": "$HOME/.config/vpn/manager.sh",
+		"format": "<span font='12'>{text}</span>"
 	},
 
 	"battery": {

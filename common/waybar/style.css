@@ -85,6 +85,8 @@
 	padding: 0px 5px;
 }
 
+@import url("./vpn.css");
+
 @import url("./battery.css");
 
 /* SLIDERS */
