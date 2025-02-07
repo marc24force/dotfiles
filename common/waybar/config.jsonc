@@ -140,7 +140,8 @@
 			"headset-muted": "",
 			"hdmi":  ["", "", ""],
 			"hdmi-muted" : "",
-			"default": ""
+			"default":  ["", "", ""],
+			"default-muted" : ""
 		},
 		"on-click": "pactl set-sink-mute @DEFAULT_SINK@ toggle",
 		"on-click-right": "pactl set-default-sink `pactl list short sinks | grep -v $(pactl get-default-sink) | grep -v iec958 | awk {'print $2'}`"
