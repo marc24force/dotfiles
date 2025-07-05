@@ -1,0 +1,119 @@
+Follow installation guide until xchroot
+https://docs.voidlinux.org/installation/guides/chroot.html (XBPS method)
+
+install neovim: xbps-install neovim
+install non-free: xbps-install void-repo-nonfree
+install intel: xbps-install intel-ucode (xbps-install linux-firmware-amd for amd)
+Install Broadcom drivers: xbps-install -Su broadcom-wl-dkms
+install iwd: xbps-install iwd
+(from outside xchroot) {
+copy iwd config from /etc/iwd/main.conf to /mnt/etc/iwd/
+copy networks config from /var/lib/iwd to /mnt/var/lib/iwd
+}
+
+update locale in /etc/locale.conf
+set timezone: ln -s /usr/share/zoneinfo/Europe/Andorra /etc/localtime
+update /etc/rc.conf HARDWARECLOCK to local and timezone
+
+continue with the guide
+
+after installing grub, to enable dual issue, add to /etc/default/grub 
+GRUB_DISABLE_OS_PROBER=false
+and run chmod -x /etc/grub.d/30_uefi-firmware to remove the entry uefi firmware
+
+install grub theme:
+git clone https://github.com/vinceliuice/grub2-themes.git
+then just install according to the readme
+
+and run update-grub
+
+reboot to the installed OS
+start dbus service: ln -s /etc/sv/dbus /var/service
+start iwd service: ln -s /etc/sv/iwd /var/service
+
+create users: useradd <user_name>
+and for each create a password: passwd <user_name>
+uncomment the wheel line in visudo /etc/sudoers
+run:
+echo "ALL ALL=(ALL) NOPASSWD: /usr/bin/reboot, /usr/bin/poweroff, /usr/bin/halt" > /etc/sudoers.d/halt
+echo "ALL ALL=(ALL) NOPASSWD: /usr/bin/zzz" >> /etc/sudoers.d/halt
+
+Shared drive with windows:
+create group with access:
+groupadd <group>
+and add users with usermod -aG <group> <user>
+create the mounting directory wiht: mkdir -p /mnt/<dir>
+xbps-install ntfs-3g
+get UUID with lsblk -f
+edit fstab and add:
+UUID=<uuid>  /mnt/<dir>  ntfs-3g  rw,uid=<user>,gid=<group>,umask=0002  0  0
+set permisions with
+sudo chown root:<group> /mnt/<dir>
+sudo chmod 775 /mnt/<dir>
+
+setup trim for ssd (add all the mounted directories)
+xbps-install cronie
+echo -e '#!/bin/sh\nfstrim /' > /etc/cron.weekly/fstrim
+chmod u+x /etc/cron.weekly/fstrim
+
+setup mkinitcpio for initramfs
+install mkinitcpio: xbps-install mkinitcpio
+set it with: xbps-alternatives -s mkinitcpio
+
+install nvidia drivers: xbps-install nvidia nvidia-vaapi-driver
+add nvidia modules in /etc/mkinitcpio.conf
+MODULES=(nvidia nvidia_modeset nvidia_uvm nvidia_drm)
+echo 'options nvidia_drm modeset=1 fbdev=1' > /etc/modprobe.d/nvidia.conf
+echo 'options nvidia NVreg_PreserveVideoMemoryAllocations=1' > /etc/modprobe.d/nvidia-power-management.conf
+reconfigure Linux: xbps-reconfigure -f linux<X>.<Y>
+
+install logging: xbps-install socklog-void
+ln -s /etc/sv/socklog-unix /var/service
+ln -s /etc/sv/nanoklogd /var/service
+add users to socklog group: usermod -aG socklog <user>
+
+HYPRLAND
+echo "repository=https://raw.githubusercontent.com/Makrennel/hyprland-void/repository-x86_64-glibc" > /etc/xbps.d/hyprland-void.conf
+sudo xbps-install -S hyprland hyprpaper wayland-devel xorg-server-xwayland base-devel
+sudo xbps-install -S xdg-desktop-portal-hyprland
+sudo xbps-install -S nerd-fonts
+xbps-install foot qutebrowser python3-adblock grim slurp jq
+sudo xbps-install pipewire{,-devel} wireplumber{,-devel}
+sudo mkdir -p /etc/pipewire/pipewire.conf.d
+sudo ln -s /usr/share/examples/wireplumber/10-wireplumber.conf /etc/pipewire/pipewire.conf.d
+sudo ln -s /usr/share/examples/pipewire/20-pipewire-pulse.conf /etc/pipewire/pipewire.conf.d
+
+if using nvidia: clone hyprlock and build from sources changing 5000 to 16 in src/core/hyprlock.cpp
+else: xbps-install hyrplock
+
+Waybar:
+clone github.com/marc24force/Waybar.git
+build from sources
+
+Tofi:
+clone github.com/marc24force/tofi.git
+build from sources
+
+VPN:
+sudo xbps-install openfortivpn ppp
+groupadd vpn
+usermod -aG vpn <user>
+add to /etc/sudoers.d/vpn: %vpn ALL=(ALL) NOPASSWD: /usr/bin/openfortivpn
+
+Steam:
+sudo xbps-install -S void-repo-multilib{,-nonfree}
+nvidia: sudo xbps-install libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit  nvidia-libs-32bit 
+nonvidia: sudo xbps-install libgcc-32bit libstdc++-32bit libdrm-32bit libglvnd-32bit mesa-dri-32bit
+
+Aseprite:
+ sudo xbps-install gcc clang libcxxabi{,-devel} cmake ninja libX11{,-devel} libXcursor{,-devel} MesaLib-devel mesa fontconfig{,-devel} libwebp
+ wget https://github.com/aseprite/skia/releases/download/m102-861e4743af/Skia-Linux-Release-x64-libstdc++.zip
+ follow aseprite repo instructions, replace libc++ with libstdc++
+ cd src/desktp/linux
+ cmake
+ make install
+
+USERS:
+admin: $USER wheel dialout audio video input games vpn
+leisure: $USER games
+work: $USER vpn
